@@ -1,0 +1,103 @@
+
+
+Rails:
+
+  Enabled: true
+
+​
+
+Rails/OutputSafety:
+
+  Enabled: false
+
+​
+
+AllCops:
+
+  TargetRubyVersion: 2.3
+
+  DisplayCopNames: true
+
+  Exclude:
+
+    - 'db/schema.rb'
+
+​
+
+CaseIndentation:
+
+  IndentOneStep: true
+
+​
+
+Metrics/AbcSize:
+
+  Exclude:
+
+    - 'db/migrate/*'
+
+​
+
+Metrics/LineLength:
+
+  Max: 120
+
+​
+
+Metrics/MethodLength:
+  Max: 20
+
+  Exclude:
+
+    - 'db/migrate/*'
+
+​
+
+Style/ClassAndModuleChildren:
+
+  Enabled: false
+
+​
+
+Style/Documentation:
+
+  Enabled: false
+
+​
+
+Style/DotPosition:
+
+  EnforcedStyle: trailing
+
+​
+
+Style/Lambda:
+
+  EnforcedStyle: literal
+
+​
+
+Style/PercentLiteralDelimiters:
+
+  PreferredDelimiters:
+
+    '%i': '[]'
+
+    '%w': '[]'
+
+    '%W': '[]'
+
+​
+
+Style/RescueModifier:
+
+  Enabled: false
+
+​
+
+Style/SpaceInsideHashLiteralBraces:
+
+  EnforcedStyle: no_space
+
+  EnforcedStyleForEmptyBraces: no_space
+

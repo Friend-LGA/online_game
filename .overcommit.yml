@@ -1,0 +1,61 @@
+
+
+PreCommit:
+
+​
+
+  ALL:
+
+    quiet: false
+
+    on_warn: fail
+
+​
+
+  Brakeman:
+
+    enabled: true
+
+    description: 'Check for security vulnerabilities'
+
+​
+
+  HardTabs:
+
+    enabled: true
+
+    description: 'Check for hard tabs'
+
+​
+
+  RuboCop:
+
+    enabled: true
+
+    description: 'Analyze with RuboCop'
+
+​
+
+  SlimLint:
+
+    enabled: true
+
+    description: 'Analyze with slim-lint'
+
+​
+
+  TrailingWhitespace:
+
+    enabled: true
+
+    description: 'Check for trailing whitespace'
+
+​
+
+  YamlSyntax:
+
+    enabled: true
+
+    description: 'Check YAML syntax'
+
+
