@@ -17,7 +17,6 @@ tmp/
 .powenv
 # Ignore Byebug command history file
 .byebug_history
-config/database.yml
 *.rbc
 capybara-*.html
 public/system/
