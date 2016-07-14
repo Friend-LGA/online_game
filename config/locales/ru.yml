@@ -1,22 +1,113 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
-ru: {}
+ru:
+  user_was_destroy_successfull: 'Пользователь успешно удален'
+  user_was_update_successfull: 'Пользователь успешно обновлен'
+  layouts:
+    application:
+      name: 'Шашки онлайн'
+      play: 'Играть'
+      rules: 'Правила'
+      about: 'О нас'
+      copyright: '2016'
+      register_and_auth: 'Регистрация / Авторизация'
+      profile: 'Мой профиль'
+      adverticement: 'Реклама'
+  devise:
+    aliases:
+      - &email
+        'Электронная почта'
+      - &password
+        'Пароль'
+      - &remember
+        'Запомнить меня'
+      - &forgot_password
+        'Восстановление пароля'
+      - &send
+        'Отправить'
+      - &send_confirmation
+        'Отправить письмо с подтверждением'
+      - &confirm_email
+        'Подтвердить почту'
+      - &auth
+        'Авторизация'
+      - &registration
+        'Регистрация'
+    password: 'Пароль'
+    remember: 'Запомнить меня'
+    forgot_password: 'Восстановление пароля'
+    send: 'Отправить'
+    send_confirmation: 'Отправить письмо с подтверждением'
+    confirm_email: 'Подтвердить почту'
+    auth: 'Авторизация'
+    registration: 'Регистрация'
+    mailer:
+      confirmation_instructions:
+        confirm_email: 'Подвердить почту'
+        hello: 'Привет'
+        redirect: 'Перейдите по ссылку что бы подтвердить почту'
+      password_change:
+        hello: 'Привет'
+        your_password_was_chenged: 'Ваш пароль был изменен'
+      reset_password_instructions:
+        u_can_change_p: 'Вы можете сменить пароль перейдя по этой ссылке'
+        hello: 'Привет'
+        change_password: 'Сменить пароль'
+    registrations:
+      new:
+        registrating: 'Зарегистрироваться'
+        confirm_password: 'Повторите пароль'
+        password_seychas: 'Текущий пароль'
+        login: 'Логин'
+        email: *email
+        password: *password
+        registration: *registration
+        send: *send
+        charecter_minimum: 'Минимальная длинна пароля'
+      edit:
+    confirmations:
+      new:
+        send_confirmation: *send_confirmation
+        email: *email
+        password: *password
+        confirm_email: *confirm_email
+        send: *send
+    passwords:
+      new:
+        forgot_password: *forgot_password
+        email: *email
+        send: *send
+      edit:
+        charecter_minimum: 'Минимальная длинна пароля'
+        password: *password
+    sessions:
+      new:
+        authing: 'Авторизоваться'
+        email: *email
+        registration: *registration
+        password: *password
+        remember: *remember
+        auth: *auth
+    shared:
+      links:
+        registration: *registration
+        auth: *auth
+        forgot_password: *forgot_password
+        confirm_email: *confirm_email
+  users:
+    show:
+      on_index: 'На главную'
+      edit: 'Редактировать'
+      back: 'Выйти'
+    edit:
+      login: 'Логин'
+      rename: 'Изменить имя'
+      edit_profile: 'Редактирование профиля'
+      show: 'Вернуться к профилю'
+      back: 'На главную'
+    index:
+      you_must_auth: 'Вы должны авторизоваться'
+      offline:  'Оффлайн'
+      online: 'Онлайн'
+      online_users: 'Пользователи'
+      profile: 'Профиль'
+      status: 'Статус'
+      login: 'Логин'

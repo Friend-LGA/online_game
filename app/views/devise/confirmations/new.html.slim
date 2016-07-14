@@ -1,0 +1,11 @@
+h2 =t('.send_confirmation')
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {method: :post}) do |f|
+  = devise_error_messages!
+  .field
+    = f.label t('.email')
+    br
+    - email_value = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
+    = f.email_field :email, autofocus: true, value: email_value
+  .actions
+    = f.submit t('.send'), class: 'btn btn-success sign_button'
+= render partial: 'devise/shared/links'

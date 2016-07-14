@@ -1,64 +1,27 @@
-
-
 linters:
-
-​
-
   ConsecutiveControlStatements:
-
     max_consecutive: 2
-
-​
-
   LineLength:
-
     max: 120
-
-​
-
   RedundantDiv:
-
     enabled: false
-
-​
-
   RuboCop:
-
     ignored_cops:
-
       - Lint/BlockAlignment
-
       - Lint/EndAlignment
-
       - Lint/Void
-
       - Metrics/LineLength
-
       - Style/AlignHash
-
       - Style/AlignParameters
-
       - Style/BlockNesting
-
       - Style/FileName
-
       - Style/FirstParameterIndentation
-
       - Style/FrozenStringLiteralComment
-
       - Style/IfUnlessModifier
-
       - Style/IndentationConsistency
-
       - Style/IndentationWidth
-
       - Style/Next
-
       - Style/TrailingBlankLines
-
       - Style/TrailingWhitespace
-
       - Style/WhileUntilModifier
-
       - Style/IdenticalConditionalBranches
-

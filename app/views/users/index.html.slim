@@ -1,0 +1,17 @@
+h3 =t('.online_users')
+table class="table"
+  tr class="info"
+    td
+      = t('.id')
+    td
+      = t('.login')
+    td
+
+  -@users.each do |user|
+      tr
+        td style="width: 1px"
+         = user.id
+        td
+          = user.login
+        td style="width: 1px"
+            = link_to t('.profile'), user_path(user.id)

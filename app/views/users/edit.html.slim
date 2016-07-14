@@ -1,0 +1,11 @@
+h1 =t('.edit_profile')
+
+= form_for @user do |f|
+    = f.label t('.login')
+    br
+    = f.text_field :login
+    = f.submit t('.rename'), class: 'btn btn-success sign_button'
+
+= link_to t('.show'), user_path(@user.id)
+br
+= link_to t('.back'), users_path

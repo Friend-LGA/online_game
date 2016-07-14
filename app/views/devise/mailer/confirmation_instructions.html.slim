@@ -1,0 +1,5 @@
+p = t('.hello')
+  = @email
+  |!
+  = t('.redirect')
+p = link_to t('.confirm_email'), confirmation_url(@resource, confirmation_token: @token)

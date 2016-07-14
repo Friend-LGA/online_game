@@ -6,4 +6,38 @@ head
   =javascript_include_tag 'application'
   =csrf_meta_tags
 body
-  =yield
+
+<!--Навигация -->
+/! Navigation
+
+nav.navbar.navbar-inverse.navbar role="navigation"
+  .container
+    .navbar-header
+      button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+        span.sr-only =t('.toggle_navigation')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      =link_to t('.name'), users_path, class: 'navbar-brand'
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        -if user_signed_in?
+          li
+           = link_to t('.profile'), user_path(current_user.id)
+        -else
+          li
+           =link_to t('.register_and_auth'), new_user_session_path
+.container style="margin-top:70px"
+  .row
+    .col-lg-9
+      div class="panel panel-default"
+        div class="panel-heading"
+          h3 class="panel-title" = t '.name'
+        div class="panel-body"
+          = yield
+    .col-md-3
+      div class="panel panel-default"
+        div class="panel-heading"
+          h3 class="panel-title" = t('.adverticement')
+        div class="panel-body no_link"
+          = t('.adverticement')

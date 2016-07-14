@@ -1,0 +1,10 @@
+div class="page-header"
+  h1
+    = @user.login
+    br
+    -if user_signed_in? && current_user.id == @user.id
+      small = link_to t('.edit'), edit_user_path(@user)
+= link_to t('.on_index'), users_path
+-if user_signed_in?
+br
+    = link_to " #{t('.back')}", destroy_user_session_path, method: :delete

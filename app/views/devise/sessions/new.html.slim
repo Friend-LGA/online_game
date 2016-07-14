@@ -1,0 +1,15 @@
+h2 = t('.auth')
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .input-group.full_lenght
+    = devise_error_messages!
+    = f.label t('.email')
+    = f.email_field :email, autofocus: true, class: 'form-control'
+  .input-group.full_lenght
+    = f.label t('.password')
+    = f.password_field :password, autocomplete: 'off', class: 'form-control'
+  - if devise_mapping.rememberable?
+      = f.check_box :remember_me
+      = f.label t('.remember')
+  .actions
+    = f.submit t('.authing'), class: 'btn btn-success sign_button'
+= render 'devise/shared/links'

@@ -1,0 +1,27 @@
+h2 = t('.registration')
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: 'novalidate'}) do |f|
+  - if resource.errors.present?
+    .alert.alert-danger.small_font
+      = devise_error_messages!
+  .input-group.full_lenght
+    = f.label t('.email')
+    = f.email_field :email, autofocus: true, class: 'form-control'
+  .input-group.full_lenght
+    = f.label t('.login')
+    = f.text_field :login, autofocus: true, class: 'form-control'
+  .input-group.full_lenght
+    = f.label t('.password')
+    - if @minimum_password_length
+      em
+        =t('.charecter_minimum')
+        | (#{@minimum_password_length})
+    br/
+    = f.password_field :password, autocomplete: 'off', class: 'form-control'
+  .input-group.full_lenght
+    = f.label t('.confirm_password')
+    br/
+    = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control'
+  .actions
+    = f.submit t('.registrating'), class: 'btn btn-success sign_button'
+= render 'devise/shared/links'
+
