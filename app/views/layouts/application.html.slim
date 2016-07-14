@@ -28,6 +28,7 @@ nav.navbar.navbar-inverse.navbar role="navigation"
           li
            =link_to t('.register_and_auth'), new_user_session_path
 .container style="margin-top:70px"
+  = render 'layouts/application/flash_messeges'
   .row
     .col-lg-9
       div class="panel panel-default"
