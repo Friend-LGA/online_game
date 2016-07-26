@@ -6,6 +6,8 @@ table class="table"
     td
       = t('.login')
     td
+      = t('.status')
+    td
 
   -@users.each do |user|
       tr
@@ -13,6 +15,12 @@ table class="table"
          = user.id
         td
           = user.login
+        -if user.online?
+          td class="success"
+            = t('.online')
+        -else
+          td class="danger"
+            = t('.offline')
         td style="width: 1px"
             = link_to t('.profile'), user_path(user.id)
 .pagination_center
