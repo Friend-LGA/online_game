@@ -8,4 +8,10 @@ class User < ApplicationRecord
   def online?
     $redis_users_statuses.get(id).present?
   end
+
+  validates :login,
+            presence: true,
+            uniqueness: {case_sensitive: false},
+            length: {minimum: 2, maximum: 25},
+            exclusion: {in: %w[Admin Moderator User admin moderator user]}
 end
