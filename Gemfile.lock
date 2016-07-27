@@ -82,6 +82,9 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -243,6 +246,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.7)
   jquery-rails
   kaminari (~> 0.17.0)
+  kaminari-bootstrap (~> 3.0.1)
   letter_opener
   listen (~> 3.0.5)
   overcommit (~> 0.34.2)

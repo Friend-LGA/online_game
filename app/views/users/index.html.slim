@@ -15,4 +15,5 @@ table class="table"
           = user.login
         td style="width: 1px"
             = link_to t('.profile'), user_path(user.id)
-= paginate @users
+.pagination_center
+  = paginate @users
