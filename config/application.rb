@@ -16,5 +16,7 @@ module OnlineGame
     config.to_prepare do
       Devise::Mailer.layout 'email_devise' # email.haml or email.erb
     end
+    config.assets.precompile << 'game_sessions.css'
+    config.assets.precompile << 'game_sessions.js'
   end
 end
