@@ -1,0 +1,312 @@
+html, body
+{
+    background: rgb(245, 245, 245);
+    padding: 0;
+    margin: 0;
+
+    position: relative;
+
+    height: 100%;
+    width: 100%;
+    min-height: 600px;
+    min-width: 400px;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select:   none;
+    -khtml-user-select:    none;
+    -moz-user-select:      none;
+    -ms-user-select:       none;
+    user-select:           none;
+    cursor: default;
+}
+
+#headerDiv
+{
+    background: rgb(50, 50, 50);
+
+    -webkit-box-shadow: 0 0 5px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0 0 5px 0 rgba(50, 50, 50, 0.75);
+    box-shadow:         0 0 5px 0 rgba(50, 50, 50, 0.75);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+#topActionsDiv
+{
+    display: flex;
+
+    position: absolute;
+    left: 0;
+    top: 40px;
+
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+#topActionsCenteredDiv
+{
+    position: relative;
+
+    height: 40px;
+    line-height: 40px;
+
+    margin: 0 auto;
+}
+
+#gameDiv
+{
+    display: flex;
+
+    position: absolute;
+    top: 80px;
+    bottom: 80px;
+    left: 0;
+
+    width: 100%;
+}
+
+#gameCenteredDiv
+{
+    position: relative;
+    margin: auto;
+}
+
+#boardSizeDiv
+{
+    position: absolute;
+    top: 120px;
+    bottom: 120px;
+    left: 0;
+
+    width: 100%;
+}
+
+#turnDiv
+{
+    position: relative;
+
+    margin: 0 auto;
+
+    height: 40px;
+    line-height: 40px;
+}
+
+#player1Div
+{
+    position: absolute;
+
+    left: 0;
+    width: 50%;
+
+    text-align: center;
+}
+
+#player2Div
+{
+    position: absolute;
+
+    right: 0;
+    width: 50%;
+
+    text-align: center;
+    color: rgb(150, 150, 150);
+}
+
+#canvases
+{
+    background: rgb(50, 50, 50);
+
+    -webkit-box-shadow: 0 0 10px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0 0 10px 0 rgba(50, 50, 50, 0.75);
+    box-shadow:         0 0 10px 0 rgba(50, 50, 50, 0.75);
+
+    margin: 0 auto;
+
+    position: relative;
+}
+
+.canvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#canvasGameBoard
+{
+    z-index: 1;
+}
+
+#canvasSelectedArea
+{
+    z-index: 2;
+}
+
+#canvasSelectedArea2
+{
+    z-index: 3;
+}
+
+#canvasCheckers
+{
+    z-index: 4;
+}
+
+#canvasCheckers2
+{
+    z-index: 5;
+}
+
+#timeDiv
+{
+    position: relative;
+
+    margin: 0 auto;
+
+    height: 40px;
+    line-height: 40px;
+}
+
+#fullTimeDiv
+{
+    position: absolute;
+
+    left: 0;
+    width: 50%;
+
+    text-align: center;
+}
+
+#turnTimeDiv
+{
+    position: absolute;
+
+    right: 0;
+    width: 50%;
+
+    text-align: center;
+}
+
+#turnTimeDiv:after
+{
+    clear: right;
+}
+
+#bottomActionsDiv
+{
+    display: flex;
+
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+#bottomActionsCenteredDiv
+{
+    position: relative;
+
+    height: 40px;
+    line-height: 40px;
+
+    margin: 0 auto;
+}
+
+#footerDiv
+{
+    background: rgb(50, 50, 50);
+
+    -webkit-box-shadow: 0 0 5px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0 0 5px 0 rgba(50, 50, 50, 0.75);
+    box-shadow:         0 0 5px 0 rgba(50, 50, 50, 0.75);
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+
+
+
+
+
+
+
+
+.greyText
+{
+    color: rgb(150, 150, 150);
+    text-shadow: none;
+}
+
+.headerButton
+{
+    color: rgb(150, 150, 150);
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    right: 0;
+}
+
+.headerButton:hover
+{
+    color: #fff;
+}
+
+.actionButton
+{
+    position: relative;
+
+    background-image: none;
+    text-align:center;
+    color: rgb(130, 130, 130);
+    background: rgb(230, 230, 230);
+    border: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius:    10px;
+    border-radius:         10px;
+    outline: none;
+    font-size: 16px;
+    text-decoration: none;
+    vertical-align: middle;
+    padding: 5px 10px 5px 10px;
+    height: 30px;
+
+    margin: 0 10px;
+}
+
+.actionButton:hover
+{
+    color: #000;
+    background: rgb(210, 210, 210);
+}
+
+.actionButton:active
+{
+    color: #000;
+    background: rgb(190, 190, 190);
+}

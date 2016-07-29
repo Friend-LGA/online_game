@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'users#index', as: 'users'
   devise_for :users
   resources :users, only: %i[show edit destroy update]
+  resources :game_sessions, only: %i[create show]
 end
