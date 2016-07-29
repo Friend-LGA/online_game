@@ -10,15 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725185914) do
+ActiveRecord::Schema.define(version: 20160728110149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "messages", force: :cascade do |t|
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "game_sessions", force: :cascade do |t|
+    t.integer  "white_user_id", null: false
+    t.integer  "black_user_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["black_user_id"], name: "index_game_sessions_on_black_user_id", using: :btree
+    t.index ["white_user_id"], name: "index_game_sessions_on_white_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
