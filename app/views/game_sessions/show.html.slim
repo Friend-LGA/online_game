@@ -1,0 +1,26 @@
+﻿javascript:
+  var playerColors = {
+      white: 0,
+      black: 1
+  }
+  var playerColor = #{current_user.id == @game_session.white_user.id} ? playerColors.white : playerColors.black
+
+- if current_user.id == @game_session.white_user.id
+  div.black_background_opacity
+    div.modal_window.wait_enemy
+      | Ожидание противника...
+p
+  div.players
+    div.player_name.white
+      = @game_session.white_user.login.to_s
+    div.player_name.black
+      = @game_session.black_user.login.to_s
+  div.who_is_checker
+    | Сейчас ход белых
+div#gameDiv
+  div#canvases
+    canvas#canvasGameBoard.canvas
+    canvas#canvasSelectedArea.canvas
+    canvas#canvasSelectedArea2.canvas
+    canvas#canvasCheckers.canvas
+    canvas#canvasCheckers2.canvas

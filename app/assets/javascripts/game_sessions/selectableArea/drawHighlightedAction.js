@@ -9,7 +9,7 @@ function drawHighlightedActionAtPos(posX, posY)
     // если наводим курсор на нашу не выделенную шашку
     if ((!selectedChecker || selectedChecker.numX != numX || selectedChecker.numY != numY) &&
         (!highlightedChecker || highlightedChecker.numX != numX || highlightedChecker.numY != numY) &&
-        (map && (isBlackTurn() ? isBlackChecker(map[numY][numX]) : isWhiteChecker(map[numY][numX]))))
+        (map && (isBlackTurn()? isBlackChecker(map[numY][numX]): isWhiteChecker(map[numY][numX]))))
     {
         clearHighlightedAction();
 
@@ -18,7 +18,7 @@ function drawHighlightedActionAtPos(posX, posY)
     }
     // если навели на не интерактивную клетку снимаем подсвеченные выделения, если они есть
     else if ((!map || !map[numY][numX] || isEnemyChecker(map[numY][numX])) &&
-        (!mapMoveable || !mapMoveable[numY][numX]) &&
+            (!mapMoveable || !mapMoveable[numY][numX]) &&
         (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
     {
         clearHighlightedAction();
