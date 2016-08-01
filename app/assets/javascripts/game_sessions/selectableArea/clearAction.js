@@ -32,15 +32,7 @@ function clearHighlightedChecker()
 
     highlightedChecker = null;
 
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        clearHighlightedCheckerAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
 }
 
 function clearHighlightedMove()
@@ -52,15 +44,7 @@ function clearHighlightedMove()
 
     highlightedMoveSquare = null;
 
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        clearHighlightedMoveAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, false);
-    }
-    else contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
 
     var tempHighlightedSquaresInLine = clone(highlightedSquaresInLine);
 
@@ -94,19 +78,8 @@ function clearHighlightedAttack()
     }
     else
     {
-        if (isAnimatingEnabled)
-        {
-            var borderAlpha, fillAlpha, circlesAlpha;
-            var array = getSquareAnimationParametersAndStop(numX, numY);
-            if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-            clearHighlightedAttackAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, true);
-        }
-        else
-        {
-            if (isSelectedChecker) contextSA.drawImage((isWhiteChecker(selectedChecker) ? selectedCheckerWhiteImage : selectedCheckerBlackImage), selectedChecker.posX, selectedChecker.posY);
-            else contextSA.clearRect(posX, posY, squareSize, squareSize);
-        }
+        if (isSelectedChecker) contextSA.drawImage((isWhiteChecker(selectedChecker) ? selectedCheckerWhiteImage : selectedCheckerBlackImage), selectedChecker.posX, selectedChecker.posY);
+        else contextSA.clearRect(posX, posY, squareSize, squareSize);
     }
 
     var tempHighlightedSquaresInLine = clone(highlightedSquaresInLine);
@@ -127,15 +100,7 @@ function clearSelectedChecker()
     mapAttackableSquares = null;
     selectedChecker = null;
 
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        clearSelectedCheckerAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
 }
 
 function clearSelectedMove(completionHandler)
@@ -151,48 +116,10 @@ function clearSelectedMove(completionHandler)
 
     selectedSquaresInLine = [];
 
-    if (isAnimatingEnabled)
-    {
-        var isComplete1 = false;
-        var isComplete2 = false;
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    clearLine(selectedChecker.numX, selectedChecker.numY, numX, numY);
 
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        clearSelectedMoveAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, function()
-        {
-            isComplete1 = true;
-
-            if (isComplete1 && isComplete2 && completionHandler) completionHandler();
-        });
-
-        // -------------------------------------
-
-        var key = ""+selectedChecker.numX+selectedChecker.numY+numX+numY+"";
-
-        var lineAlpha;
-        if (lineAnimations[key])
-        {
-            lineAlpha = lineAnimations[key].alpha;
-            animationFrameSelectableCanvas.cancel(lineAnimations[key].animationRequest);
-            lineAnimations[key] = null;
-        }
-
-        clearLineAnimation(selectedChecker.numX, selectedChecker.numY, numX, numY, lineAlpha, null, null, function()
-        {
-            isComplete2 = true;
-
-            if (isComplete1 && isComplete2 && completionHandler) completionHandler();
-        });
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        clearLine(selectedChecker.numX, selectedChecker.numY, numX, numY);
-
-        if (completionHandler) completionHandler();
-    }
+    if (completionHandler) completionHandler();
 
     if (tempSelectedSquaresInLine) clearSelectedSquaresInLine(tempSelectedSquaresInLine, false);
 }
@@ -222,75 +149,13 @@ function clearSelectedAttackFromIndex(index, completionHandler)
             var prevCrossing1 = tempMapCrossing[previousSquare.numY][previousSquare.numX];
             var prevCrossing2 = tempMapCrossing[tempSelectedAttackSquare.numY][tempSelectedAttackSquare.numX];
 
-            var isSelectedChecker = (selectedChecker && selectedAttackSquare.numX == selectedChecker.numX && selectedAttackSquare.numY == selectedChecker.numY);
+            var isSelectedChecker = (selectedChecker && tempSelectedAttackSquare.numX == selectedChecker.numX && tempSelectedAttackSquare.numY == selectedChecker.numY);
 
-            if (isAnimatingEnabled)
-            {
-                if (!isSelectedChecker)
-                {
-                    var borderAlpha, fillAlpha, circlesAlpha;
-                    var array = getSquareAnimationParametersAndStop(tempSelectedAttackSquare.numX, tempSelectedAttackSquare.numY);
-                    if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
+            if (!isSelectedChecker) contextSA.clearRect(tempSelectedAttackSquare.posX, tempSelectedAttackSquare.posY, squareSize, squareSize);
 
-                    clearSelectedAttackSquaresAnimation(squaresCoordinates[tempSelectedAttackSquare.numX][tempSelectedAttackSquare.numY],
-                        borderAlpha, fillAlpha, circlesAlpha, function ()
-                        {
-                            count1++;
+            clearLine(previousSquare.numX, previousSquare.numY, tempSelectedAttackSquare.numX, tempSelectedAttackSquare.numY);
 
-                            if (count1 == lastIndex && completionHandler)
-                            {
-                                isComplete1 = true;
-
-                                if (isComplete1 && isComplete2) completionHandler();
-                            }
-                        });
-                }
-                else
-                {
-                    count1++;
-
-                    if (count1 == lastIndex && completionHandler)
-                    {
-                        isComplete1 = true;
-
-                        if (isComplete1 && isComplete2) completionHandler();
-                    }
-                }
-
-                // -------------------------------------
-
-                var key = ""+previousSquare.numX+previousSquare.numY+tempSelectedAttackSquare.numX+tempSelectedAttackSquare.numY+"";
-
-                var lineAlpha;
-                if (lineAnimations[key])
-                {
-                    lineAlpha = lineAnimations[key].alpha;
-                    animationFrameSelectableCanvas.cancel(lineAnimations[key].animationRequest);
-                    lineAnimations[key] = null;
-                }
-
-                clearLineAnimation(previousSquare.numX, previousSquare.numY, tempSelectedAttackSquare.numX, tempSelectedAttackSquare.numY, lineAlpha, prevCrossing1, prevCrossing2, function()
-                {
-                    count2++;
-
-                    if (count2 == lastIndex && completionHandler)
-                    {
-                        isComplete2 = true;
-
-                        if (isComplete1 && isComplete2) completionHandler();
-                    }
-                });
-            }
-            else
-            {
-                var isSelectedChecker = (selectedChecker && tempSelectedAttackSquare.numX == selectedChecker.numX && tempSelectedAttackSquare.numY == selectedChecker.numY);
-
-                if (!isSelectedChecker) contextSA.clearRect(tempSelectedAttackSquare.posX, tempSelectedAttackSquare.posY, squareSize, squareSize);
-
-                clearLine(previousSquare.numX, previousSquare.numY, tempSelectedAttackSquare.numX, tempSelectedAttackSquare.numY);
-
-                if (i == lastIndex-1 && completionHandler) completionHandler()
-            }
+            if (i == lastIndex-1 && completionHandler) completionHandler();
 
             var tempSelectedSquaresInLine = selectedSquaresInLine[i];
 
@@ -317,18 +182,7 @@ function clearHighlightedSquare(numX, numY, posX, posY, isAttack)
 {
     if (isSelectedSquaresInLineContains(numX, numY)) drawSelectedSquare(numX, numY, posX, posY, true);
     else if (isSelectedAttackSquaresContains(numX, numY)) drawSelectedAttackSquare(numX, numY, posX, posY);
-    else
-    {
-        if (isAnimatingEnabled)
-        {
-            var borderAlpha, fillAlpha, circlesAlpha;
-            var array = getSquareAnimationParametersAndStop(numX, numY);
-            if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-            clearHighlightedSquareAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, isAttack);
-        }
-        else contextSA.clearRect(posX, posY, squareSize, squareSize);
-    }
+    else contextSA.clearRect(posX, posY, squareSize, squareSize);
 }
 
 function clearSelectedSquaresInLine(arrayOfSquares, isAttack)
@@ -343,13 +197,5 @@ function clearSelectedSquaresInLine(arrayOfSquares, isAttack)
 
 function clearSelectedSquare(numX, numY, posX, posY, isAttack)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        clearSelectedSquareAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, isAttack);
-    }
-    else contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
 }
