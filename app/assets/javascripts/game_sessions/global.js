@@ -40,8 +40,6 @@ var animationFrameSelectableCanvas = new AnimationFrame(); // библа отв�
 // настройки
 // ---------------------------------------------------------------------------------------------------------------------
 
-var animationSpeed          = 0.75;  // коэффициент для изменения скорости анимаций
-var squareAnimationSpeed    = 0.15;  // скорость анимации квадратов
 var isBordered              = false; // нужно ли рисовать широкую границу вокруг игорового поля (с цифрами и буквами)
 var isInteractionEnabled    = true;  // разрешено ли взаимодействие
 var attackDelay             = 800;   // задержка между ходами атаки
@@ -52,10 +50,9 @@ var whiteColor  = 'rgba(255, 255, 255, 1)';
 var greenColor  = 'rgba(50, 240, 50, 1)';
 var redColor    = 'rgba(240, 50, 50, 1)';
 var yellowColor = 'rgba(255, 255, 0, 1)';
-
 // изменяемое
 // ---------------------------------------------------------------------------------------------------------------------
-
+var currentPlayerColor = playerColors.white;
 var turnType =
 {
     white: 1,   // ход белых
@@ -91,7 +88,7 @@ var checkerType =
     blackKing:  2.5     // черная дамка
 };
 
-/*
+ //
  var map =
  [
  [0, 2, 0, 2, 0, 2, 0, 2],
@@ -103,25 +100,17 @@ var checkerType =
  [0, 1, 0, 1, 0, 1, 0, 1],
  [1, 0, 1, 0, 1, 0, 1, 0]
  ];
- */
-var map =
-    [
-        [0,   0,   0,   0,   0,   0,   0,   0],
-
-        [0,   0,   2,   0,   2,   0,   1,   0],
-
-        [0,   0,   0,   0,   0,   1,   0,   0],
-
-        [0,   0,   2,   0,   0,   0,   0,   0],
-
-        [0,   0,   0,   0,   0,   1,   0,   0],
-
-        [0,   0,   2,   0,   0,   0,   0,   0],
-
-        [0,   2,   0,   1,   0,   1,   0,   0],
-
-        [0,   0,   0,   0,   0,   0,   0,   0]
-    ];
+// var map =
+//     [
+//         [0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 1, 0, 0, 0],
+//         [0, 0, 0, 2, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0]
+//     ];
 
 var mapMoveable;
 var mapAttackableCheckers;
@@ -141,25 +130,6 @@ var crossingType =
     topBottom:  8,  // дуги сверху и снизу
     leftRight:  9   // дуги слева и справа
 };
-
-// карты анимаций
-// ---------------------------------------------------------------------------------------------------------------------
-
-var squareAnimationsArray =
-    [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
-    ];
-
-var lineAnimations = {};
-var selectedCheckerCirclesAnimationRequest;
-var checkerBecomeKingAnimationRequest;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -212,7 +182,36 @@ function imageForChecker(checker)
     return ((isKing(checker) ? (isBlackChecker(checker) ? blackCheckerKingImage : whiteCheckerKingImage) : (isBlackChecker(checker) ? blackCheckerManImage : whiteCheckerManImage)));
 }
 
-function logFunctionName()
-{
-    console.log(arguments.callee.name, arguments.callee.caller.name);
+function isWinnerHOD(){
+    var blackcheckers = 0;
+    var whitecheckers = 0;
+    for (i = 0; i < 8; i++) {
+        for (j = 0; j < 8; j++) {
+            if (map[i][j] != 0) {
+                if (map[i][j] == 1) {
+                    whitecheckers++
+                }
+                if (map[i][j] == 2) {
+                    blackcheckers++
+                }
+            }
+        }
+    }
+    if (blackcheckers == 0 || whitecheckers == 0){
+        if(blackcheckers == 0) {
+        winner = $('.winner');
+            winner.css({'display':'block'});
+            winner.html('Белые победили!!!');
+            setTimeout(function(){
+                window.location = "/"
+            }, 4000)
+        }
+        if(whitecheckers == 0){
+            winner.css({'display':'block'});
+            winner.html('Черные победили!!!');
+            setTimeout(function(){
+                window.location = "/"
+            }, 4000)
+        }
+    }
 }
