@@ -1,4 +1,5 @@
 h3 =t('.online_users')
+div id="invitions"
 table class="table"
   tr class="info"
     td
@@ -8,7 +9,7 @@ table class="table"
     td
       = t('.status')
     td
-
+    td
   -@users.each do |user|
       tr
         td style="width: 1px"
@@ -23,5 +24,10 @@ table class="table"
             = t('.offline')
         td style="width: 1px"
             = link_to t('.profile'), user_path(user.id)
+        td style="width:1px;"
+          =form_for :user, url: notification_path, remote: true do |f|
+            =f.hidden_field :id, value: user.id
+            =f.hidden_field :send_invite, value: user.id
+            =f.submit t('.invite_player'), class: 'btn btn-success sign_button delete_margin'
 .pagination_center
   = paginate @users

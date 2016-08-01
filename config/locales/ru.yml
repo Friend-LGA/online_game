@@ -1,6 +1,4 @@
 ru:
-  user_was_destroy_successfull: 'Пользователь успешно удален'
-  user_was_update_successfull: 'Пользователь успешно обновлен'
   layouts:
     application:
       name: 'Шашки онлайн'
@@ -93,6 +91,8 @@ ru:
         forgot_password: *forgot_password
         confirm_email: *confirm_email
   users:
+    update:
+      user_was_update_successfull: 'Пользователь успешно обновлен'
     show:
       on_index: 'На главную'
       edit: 'Редактировать'
@@ -104,6 +104,7 @@ ru:
       show: 'Вернуться к профилю'
       back: 'На главную'
     index:
+      invite_player: 'Пригласить в игру'
       you_must_auth: 'Вы должны авторизоваться'
       offline:  'Оффлайн'
       online: 'Онлайн'
