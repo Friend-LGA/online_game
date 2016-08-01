@@ -206,33 +206,29 @@ function drawSelectedActionAtPos(posX, posY)
 
 function attackAction(attackMoveNumber)
 {
-    if (isAnimatingEnabled) checkerAttackAnimation(attackMoveNumber);
-    else
+    if (attackMoveNumber == 0) contextCH.clearRect(selectedChecker.posX, selectedChecker.posY, squareSize, squareSize);
+    else contextCH.clearRect(selectedAttackSquares[attackMoveNumber-1].posX, selectedAttackSquares[attackMoveNumber-1].posY, squareSize, squareSize);
+    contextCH.clearRect(selectedAttackCheckers[attackMoveNumber].posX, selectedAttackCheckers[attackMoveNumber].posY, squareSize, squareSize);
+
+    contextCH.save();
+    contextCH.globalAlpha = 0.5;
+    contextCH.drawImage(imageForChecker(map[selectedAttackCheckers[attackMoveNumber].numY][selectedAttackCheckers[attackMoveNumber].numX]),
+        selectedAttackCheckers[attackMoveNumber].posX, selectedAttackCheckers[attackMoveNumber].posY);
+    contextCH.restore();
+
+    // при достижении последней черты шашка становится дамкой
+    if (becomeKingImmediately && selectedAttackSquares[attackMoveNumber].numY == (isBlackTurn() ? map.length-1 : 0))
     {
-        if (attackMoveNumber == 0) contextCH.clearRect(selectedChecker.posX, selectedChecker.posY, squareSize, squareSize);
-        else contextCH.clearRect(selectedAttackSquares[attackMoveNumber-1].posX, selectedAttackSquares[attackMoveNumber-1].posY, squareSize, squareSize);
-        contextCH.clearRect(selectedAttackCheckers[attackMoveNumber].posX, selectedAttackCheckers[attackMoveNumber].posY, squareSize, squareSize);
-
-        contextCH.save();
-        contextCH.globalAlpha = 0.5;
-        contextCH.drawImage(imageForChecker(map[selectedAttackCheckers[attackMoveNumber].numY][selectedAttackCheckers[attackMoveNumber].numX]),
-            selectedAttackCheckers[attackMoveNumber].posX, selectedAttackCheckers[attackMoveNumber].posY);
-        contextCH.restore();
-
-        // при достижении последней черты шашка становится дамкой
-        if (becomeKingImmediately && selectedAttackSquares[attackMoveNumber].numY == (isBlackTurn() ? map.length-1 : 0))
-        {
-            var isCheckerMan = isMan(map[selectedChecker.numY][selectedChecker.numX]);
-            if (isCheckerMan) map[selectedChecker.numY][selectedChecker.numX] += 0.5;
-        }
-
-        contextCH.drawImage(imageForChecker(map[selectedChecker.numY][selectedChecker.numX]),
-            selectedAttackSquares[attackMoveNumber].posX, selectedAttackSquares[attackMoveNumber].posY);
-
-        attackMoveNumber++;
-
-        setTimeout(function() { (attackMoveNumber < selectedAttackSquares.length ? attackAction(attackMoveNumber) : nextTurnAfterAttack()); }, attackDelay);
+        var isCheckerMan = isMan(map[selectedChecker.numY][selectedChecker.numX]);
+        if (isCheckerMan) map[selectedChecker.numY][selectedChecker.numX] += 0.5;
     }
+
+    contextCH.drawImage(imageForChecker(map[selectedChecker.numY][selectedChecker.numX]),
+        selectedAttackSquares[attackMoveNumber].posX, selectedAttackSquares[attackMoveNumber].posY);
+
+    attackMoveNumber++;
+
+    setTimeout(function() { (attackMoveNumber < selectedAttackSquares.length ? attackAction(attackMoveNumber) : nextTurnAfterAttack()); }, attackDelay);
 }
 
 function nextTurnAfterAttack()
@@ -241,12 +237,7 @@ function nextTurnAfterAttack()
     {
         map[selectedAttackCheckers[i].numY][selectedAttackCheckers[i].numX] = checkerType.empty;
 
-        if (isAnimatingEnabled)
-        {
-            var selectedAttackChecker = clone(selectedAttackCheckers[i]);
-            clearSelectedAttackCheckersAnimation(squaresCoordinates[selectedAttackChecker.numX][selectedAttackChecker.numY]);
-        }
-        else contextCH.clearRect(selectedAttackCheckers[i].posX, selectedAttackCheckers[i].posY, squareSize, squareSize);
+        contextCH.clearRect(selectedAttackCheckers[i].posX, selectedAttackCheckers[i].posY, squareSize, squareSize);
     }
 
     map[selectedAttackSquares[selectedAttackSquares.length - 1].numY][selectedAttackSquares[selectedAttackSquares.length - 1].numX] = map[selectedChecker.numY][selectedChecker.numX];
@@ -260,13 +251,9 @@ function nextTurnAfterAttack()
         {
             map[selectedAttackSquares[selectedAttackSquares.length - 1].numY][selectedAttackSquares[selectedAttackSquares.length - 1].numX] += 0.5;
 
-            if (isAnimatingEnabled) checkerBecomeKingAnimation(selectedAttackSquares[selectedAttackSquares.length - 1].posX, selectedAttackSquares[selectedAttackSquares.length - 1].posY);
-            else
-            {
-                contextCH.clearRect(selectedAttackSquares[selectedAttackSquares.length - 1].posX, selectedAttackSquares[selectedAttackSquares.length - 1].posY, squareSize, squareSize);
-                contextCH.drawImage(imageForChecker(map[selectedAttackSquares[selectedAttackSquares.length - 1].numY][selectedAttackSquares[selectedAttackSquares.length - 1].numX]),
-                    selectedAttackSquares[selectedAttackSquares.length - 1].posX, selectedAttackSquares[selectedAttackSquares.length - 1].posY);
-            }
+            contextCH.clearRect(selectedAttackSquares[selectedAttackSquares.length - 1].posX, selectedAttackSquares[selectedAttackSquares.length - 1].posY, squareSize, squareSize);
+            contextCH.drawImage(imageForChecker(map[selectedAttackSquares[selectedAttackSquares.length - 1].numY][selectedAttackSquares[selectedAttackSquares.length - 1].numX]),
+                selectedAttackSquares[selectedAttackSquares.length - 1].posX, selectedAttackSquares[selectedAttackSquares.length - 1].posY);
         }
     }
 
@@ -275,32 +262,18 @@ function nextTurnAfterAttack()
 
 function moveAction()
 {
-    if (isAnimatingEnabled)
+    contextCH.clearRect(selectedChecker.posX, selectedChecker.posY, squareSize, squareSize);
+
+    // при достижении последней черты шашка становится дамкой
+    if (becomeKingImmediately && selectedMoveSquare.numY == (isBlackTurn() ? map.length-1 : 0))
     {
-        if (selectedCheckerCirclesAnimationRequest)
-        {
-            animationFrameSelectableCanvas.cancel(selectedCheckerCirclesAnimationRequest);
-            selectedCheckerCirclesAnimationRequest = null;
-            contextCH.clearRect(selectedChecker.posX, selectedChecker.posY, squareSize, squareSize);
-        }
-
-        checkerMoveAnimation(selectedChecker, selectedMoveSquare);
+        var isCheckerMan = isMan(map[selectedChecker.numY][selectedChecker.numX]);
+        if (isCheckerMan) map[selectedChecker.numY][selectedChecker.numX] += 0.5;
     }
-    else
-    {
-        contextCH.clearRect(selectedChecker.posX, selectedChecker.posY, squareSize, squareSize);
 
-        // при достижении последней черты шашка становится дамкой
-        if (becomeKingImmediately && selectedMoveSquare.numY == (isBlackTurn() ? map.length-1 : 0))
-        {
-            var isCheckerMan = isMan(map[selectedChecker.numY][selectedChecker.numX]);
-            if (isCheckerMan) map[selectedChecker.numY][selectedChecker.numX] += 0.5;
-        }
+    contextCH.drawImage(imageForChecker(map[selectedChecker.numY][selectedChecker.numX]), selectedMoveSquare.posX, selectedMoveSquare.posY);
 
-        contextCH.drawImage(imageForChecker(map[selectedChecker.numY][selectedChecker.numX]), selectedMoveSquare.posX, selectedMoveSquare.posY);
-
-        setTimeout(function() { nextTurnAfterMove(); }, moveDelay);
-    }
+    setTimeout(function() { nextTurnAfterMove(); }, moveDelay);
 }
 
 function nextTurnAfterMove()
@@ -316,12 +289,8 @@ function nextTurnAfterMove()
         {
             map[selectedMoveSquare.numY][selectedMoveSquare.numX] += 0.5;
 
-            if (isAnimatingEnabled) checkerBecomeKingAnimation(selectedMoveSquare.posX, selectedMoveSquare.posY);
-            else
-            {
-                contextCH.clearRect(selectedMoveSquare.posX, selectedMoveSquare.posY, squareSize, squareSize);
-                contextCH.drawImage(imageForChecker(map[selectedMoveSquare.numY][selectedMoveSquare.numX]), selectedMoveSquare.posX, selectedMoveSquare.posY);
-            }
+            contextCH.clearRect(selectedMoveSquare.posX, selectedMoveSquare.posY, squareSize, squareSize);
+            contextCH.drawImage(imageForChecker(map[selectedMoveSquare.numY][selectedMoveSquare.numX]), selectedMoveSquare.posX, selectedMoveSquare.posY);
         }
     }
 
@@ -338,93 +307,32 @@ function nextTurnDone()
 
 function drawSelectedChecker(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawSelectedCheckerAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isBlackTurn() ? selectedCheckerBlackImage : selectedCheckerWhiteImage), posX, posY);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isBlackTurn() ? selectedCheckerBlackImage : selectedCheckerWhiteImage), posX, posY);
 }
 
 function drawSelectedMove(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawSelectedMoveAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-
-        // --------------------------------
-
-        var key = ""+selectedChecker.numX+selectedChecker.numY+numX+numY+"";
-
-        var lineAlpha;
-        if (lineAnimations[key])
-        {
-            lineAlpha = lineAnimations[key].alpha;
-            animationFrameSelectableCanvas.cancel(lineAnimations[key].animationRequest);
-            lineAnimations[key] = null;
-        }
-
-        drawLineAnimation(selectedChecker.numX, selectedChecker.numY, numX, numY, null, null, lineAlpha);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isBlackTurn() ? selectedMoveBlackImage : selectedMoveWhiteImage), posX, posY);
-        drawMoveLine(1);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isBlackTurn() ? selectedMoveBlackImage : selectedMoveWhiteImage), posX, posY);
+    drawMoveLine(1);
 }
 
 function drawSelectedAttack(numX1, numY1, posX1, posY1, numX2, numY2, numX_clear, numY_clear, prevCrossing1, prevCrossing2)
 {
-    if (isAnimatingEnabled)
+    var isSelectedChecker = (selectedChecker && numX1 == selectedChecker.numX && numY1 == selectedChecker.numY);
+
+    contextSA.clearRect(posX1, posY1, squareSize, squareSize);
+
+    if (isSelectedChecker) contextSA.drawImage((isBlackTurn() ? selectedCheckerBlackImage : selectedCheckerWhiteImage), posX1, posY1);
+    else contextSA.drawImage((isBlackTurn() ? selectedAttackBlackImage : selectedAttackWhiteImage), posX1, posY1);
+
+    drawLineWithCrossing(numX2, numY2, numX1, numY1, 1, prevCrossing1, prevCrossing2);
+
+    if (numX_clear && numY_clear)
     {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX1, numY1);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawSelectedAttackAnimation(squaresCoordinates[numX1][numY1], borderAlpha, fillAlpha, circlesAlpha);
-
-        // --------------------------------
-
-        var key = ""+numX2+numY2+numX1+numY1+"";
-
-        var lineAlpha;
-        if (lineAnimations[key])
-        {
-            lineAlpha = lineAnimations[key].alpha;
-            animationFrameSelectableCanvas.cancel(lineAnimations[key].animationRequest);
-            lineAnimations[key] = null;
-        }
-
-        drawLineAnimation(numX2, numY2, numX1, numY1, numX_clear, numY_clear, lineAlpha, prevCrossing1, prevCrossing2);
-    }
-    else
-    {
-        var isSelectedChecker = (selectedChecker && numX1 == selectedChecker.numX && numY1 == selectedChecker.numY);
-
-        contextSA.clearRect(posX1, posY1, squareSize, squareSize);
-
-        if (isSelectedChecker) contextSA.drawImage((isBlackTurn() ? selectedCheckerBlackImage : selectedCheckerWhiteImage), posX1, posY1);
-        else contextSA.drawImage((isBlackTurn() ? selectedAttackBlackImage : selectedAttackWhiteImage), posX1, posY1);
-
-        drawLineWithCrossing(numX2, numY2, numX1, numY1, 1, prevCrossing1, prevCrossing2);
-
-        if (numX_clear && numY_clear)
-        {
-            clearCircleInSquare(numX_clear, numY_clear);
-            drawCrossing(numX_clear, numY_clear, mapCrossing[numY_clear][numX_clear], 1);
-        }
+        clearCircleInSquare(numX_clear, numY_clear);
+        drawCrossing(numX_clear, numY_clear, mapCrossing[numY_clear][numX_clear], 1);
     }
 }
 
@@ -441,38 +349,16 @@ function drawSelectedSquaresInLine(arrayOfSquares, isAttack)
 
 function drawSelectedSquare(numX, numY, posX, posY, isAttack, completionHandler)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isAttack ? selectedAttackSquareImage : selectedMoveSquareImage), posX, posY);
 
-        drawSelectedSquareAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, isAttack, completionHandler);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isAttack ? selectedAttackSquareImage : selectedMoveSquareImage), posX, posY);
-
-        if (completionHandler) completionHandler();
-    }
+    if (completionHandler) completionHandler();
 }
 
 function drawSelectedAttackSquare(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawSelectedAttackAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isBlackTurn() ? selectedAttackBlackImage : selectedAttackWhiteImage), posX, posY);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isBlackTurn() ? selectedAttackBlackImage : selectedAttackWhiteImage), posX, posY);
 }
 
 
