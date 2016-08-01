@@ -80,35 +80,13 @@ function drawHighlightedActionAtPos(posX, posY)
 
 function drawHighlightedChecker(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        if (selectedChecker && selectedChecker.numX == numX && selectedChecker.numY == numY)
-            drawHighlightedAfterSelectedCheckerAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-        else
-            drawHighlightedCheckerAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha);
-    }
-    else
-    {
-        if (selectedChecker) contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage(highlightedCheckerImage, posX, posY);
-    }
+    if (selectedChecker) contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage(highlightedCheckerImage, posX, posY);
 }
 
 function drawHighlightedMove(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawHighlightedMoveAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else contextSA.drawImage((isBlackTurn() ? highlightedMoveBlackImage : highlightedMoveWhiteImage), posX, posY);
+    contextSA.drawImage((isBlackTurn() ? highlightedMoveBlackImage : highlightedMoveWhiteImage), posX, posY);
 }
 
 function drawHighlightedAttack(numX, numY, posX, posY)
@@ -123,19 +101,8 @@ function drawHighlightedAttack(numX, numY, posX, posY)
         if (mapCrossing[numY][numX]) drawCrossing(numX, numY, mapCrossing[numY][numX], 1);
     }
 
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawHighlightedAttackAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isBlackTurn() ? highlightedAttackBlackImage : highlightedAttackWhiteImage), posX, posY);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isBlackTurn() ? highlightedAttackBlackImage : highlightedAttackWhiteImage), posX, posY);
 }
 
 function drawHighlightedSquaresInLine(arrayOfSquares, isAttack)
@@ -160,36 +127,14 @@ function drawHighlightedSquaresInLine(arrayOfSquares, isAttack)
 
 function drawHighlightedSquare(numX, numY, posX, posY, isAttack)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawHighlightedSquareAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha, isAttack);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isAttack ? highlightedAttackSquareImage : highlightedMoveSquareImage), posX, posY);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isAttack ? highlightedAttackSquareImage : highlightedMoveSquareImage), posX, posY);
 }
 
 function drawHighlightedAttackSquare(numX, numY, posX, posY)
 {
-    if (isAnimatingEnabled)
-    {
-        var borderAlpha, fillAlpha, circlesAlpha;
-        var array = getSquareAnimationParametersAndStop(numX, numY);
-        if (array) { borderAlpha = array[0]; fillAlpha = array[1]; circlesAlpha = array[2]; }
-
-        drawHighlightedAttackSquareAnimation(squaresCoordinates[numX][numY], borderAlpha, fillAlpha, circlesAlpha);
-    }
-    else
-    {
-        contextSA.clearRect(posX, posY, squareSize, squareSize);
-        contextSA.drawImage((isBlackTurn() ? highlightedAttackBlackImage : highlightedAttackWhiteImage), posX, posY);
-    }
+    contextSA.clearRect(posX, posY, squareSize, squareSize);
+    contextSA.drawImage((isBlackTurn() ? highlightedAttackBlackImage : highlightedAttackWhiteImage), posX, posY);
 }
 
 

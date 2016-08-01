@@ -1,10 +1,3 @@
-$('html').keydown(function(event)
-{
-    // TODO проверить правильно ли отрабатывается во всех браузерах
-    if (event.keyCode == 70) fullScreenChange();
-    if (event.keyCode == 27) fullScreenCancel();
-});
-
 window.onresize = function()
 {
     resize();
@@ -17,18 +10,6 @@ window.onload = function()
     // отрисовываем все
 
     resize();
-
-    // проверяем, доступен ли полноэкранный режим
-
-    var isFullscreenEnabled = (
-        document.fullscreenEnabled ||
-        document.fullScreenEnabled || // добавил на всякий
-        document.mozFullScreenEnabled ||
-        document.webkitFullscreenEnabled ||
-        document.msFullscreenEnabled) &&
-        !isMobileDevice;
-
-    if (!isFullscreenEnabled) $('#fullscreenButton').remove();
 
     // отслеживаем позицию нажатия на канвасе
 
@@ -89,6 +70,4 @@ window.onload = function()
         document.addEventListener('mousedown', mouseDownActionAtPos, false);
         document.addEventListener('mousemove', mouseMoveActionAtPos, false);
     }
-
-    //alert(navigator.userAgent);
 };
