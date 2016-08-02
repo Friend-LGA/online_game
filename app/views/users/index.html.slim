@@ -16,7 +16,7 @@ table class="table"
          = user.id
         td
           = user.login
-        -if user.online?
+        -if current_user == user || user.online?
           td class="success"
             = t('.online')
         -else
@@ -25,7 +25,7 @@ table class="table"
         td style="width: 1px"
             = link_to t('.profile'), user_path(user.id)
         td style="width:1px;"
-          =form_for :user, url: notification_path, remote: true do |f|
+          =form_for :user, url: notification_path do |f|
             =f.hidden_field :id, value: user.id
             =f.hidden_field :send_invite, value: user.id
             =f.submit t('.invite_player'), class: 'btn btn-success sign_button delete_margin'

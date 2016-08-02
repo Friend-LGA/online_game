@@ -1,8 +1,8 @@
+# frozen_string_literal: true
 class GameSessionsController < ApplicationController
   before_action :set_game_session, only: :show
 
   def show
-    render('show', layout: 'empty')
   end
 
   def create
@@ -22,6 +22,6 @@ class GameSessionsController < ApplicationController
   end
 
   def game_session_params
-    params.require(:game_session).permit()
+    params.require(:game_session).permit
   end
 end

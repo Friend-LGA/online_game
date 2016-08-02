@@ -8,32 +8,27 @@ App.invite_user = App.cable.subscriptions.create("InviteUserChannel", {
   },
 
   received: function(data) {
+    $token = $("meta[name=csrf-token]").attr('content');
     if (data.type == 'invite'){
-      document.getElementById('invitions').innerHTML+='<div class="alert alert-warning">Игрок '
-      +data.login
-      +' пригласил вас в игру, <a href="/game">присоедениться</a>'
-      +'<form action="/notification/accept" accept-charset="UTF-8" data-remote="true" method="post">'
-      +'<input name="utf8" value="✓" type="hidden"><input value="'+data.id+'" name="user[id]" id="user_id" type="hidden">'
-      +'<input value="'+data.id_to+'" name="user[send_invite]" id="user_send_invite" type="hidden">'
-      +'<input name="commit" value="Принять" class="btn btn-success sign_button delete_margin" '
-      +'data-disable-with="Пригласить в игру" type="submit"></form>'
-      +'<form action="/notification/decline" accept-charset="UTF-8" data-remote="true" method="post">'
-      +'<input name="utf8" value="✓" type="hidden"><input value="'+data.id+'" name="user[id]" id="user_id" type="hidden">'
-      +'<input value="'+data.id_to+'" name="user[send_invite]" id="user_send_invite" type="hidden">'
-      +'<input name="commit" value="отклонить" class="btn btn-success sign_button delete_margin"'
-      +'data-disable-with="Пригласить в игру" type="submit"></form>'
-    }
-    if (data.type == 'accept'){
-      document.getElementById('invitions').innerHTML+='<div class="alert alert-warning">Игрок '
-      +data.login
-      +' принял ваше приглашение, вы перейдете в игру через 3 секунды.'
-      alert('Отдохни');
-      window.location.href = "https://new.vk.com/feed"
+      document.getElementById('invitions').innerHTML+=
+      '<div class="alert alert-warning">Игрок '
+      +'<button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>'
+      +data.login+' пригласил вас в игру, <a href="/game">присоедениться</a>'
+
+      // +'<form action="/notification/accept" accept-charset="UTF-8" method="post">'
+      // +'<input value="'+data.game_session_id+'" name="game_session_id" type="hidden">'
+      // +'<input value="Принять" class="btn btn-success sign_button delete_margin" '
+      // +'data-disable-with="Принять" type="submit"></form>'
+
+      +'<a href = "/game_sessions/'+data.game_session_id+'" class = "btn btn-success sign_button delete_margin" >Принять</a>'
+      +'<form action="/notification/decline" accept-charset="UTF-8" method="POST">'
+      +'<input name="authenticity_token" value="'+$token+'" type="hidden">'
+      +'<input value="'+data.game_session_id+'" name="game_session_id" type="hidden">'
+      +'<input name="commit" value="Отклонить" class="btn btn-success sign_button delete_margin"'
+      +'data-disable-with="Отклонить" type="submit"></form>'
     }
     if (data.type == 'decline'){
-      document.getElementById('invitions').innerHTML+='<div class="alert alert-warning">Игрок '
-      +data.login
-      +' отклонил ваше приглашение'
+      alert('123')
     }
   }
 });
