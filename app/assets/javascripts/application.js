@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require cable
+//= require ./game_sessions/vendors/animation_frame.min
+//= require_tree ./game_sessions

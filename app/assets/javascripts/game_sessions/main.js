@@ -1,6 +1,6 @@
 window.onresize = function()
 {
-    resize();
+      resize();
 };
 
 window.

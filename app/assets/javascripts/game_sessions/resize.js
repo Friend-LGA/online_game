@@ -1,10 +1,9 @@
 function resize()
 {
-    var boardSizeDiv = $('#boardSizeDiv');
-    var gameCenteredDiv = $('#gameCenteredDiv');
+    var gameDiv = $('#gameDiv');
     var canvases = $('#canvases');
 
-    size.out = (boardSizeDiv.height() < boardSizeDiv.width() ? boardSizeDiv.height() : boardSizeDiv.width());
+    size.out = gameDiv.width();
 
     var borderMultiplier = (isBordered ? 0.05 : 0.003);
     border.width = Math.floor(size.out*borderMultiplier);
@@ -17,8 +16,6 @@ function resize()
     size.out = size.in + border.width*2;
 
     // -------------------------------------------------------------
-
-    gameCenteredDiv.width(size.out);
 
     canvases.width(size.out);
     canvases.height(size.out);
@@ -54,7 +51,7 @@ function resize()
     canvasCH2.style.top = border.width+"px";
     canvasCH2.style.left = border.width+"px";
 
-    squaresCoordinates = makeCoordinatesMap();
+    window.squaresCoordinates = makeCoordinatesMap();
 
     drawGlobalImages();
     drawGameBoard();

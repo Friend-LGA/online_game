@@ -27,8 +27,7 @@ class UsersController < ApplicationController
     end
 
     if @game_session
-      redirect_to users_path, notice: 'Error ТИПО ЗАШЕЛ'
-      # redirect_to game_session_path(@game_session.id)
+      redirect_to game_session_path(@game_session.id)
     else
       redirect_to users_path, notice: 'Error 500'
     end
