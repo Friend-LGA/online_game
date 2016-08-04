@@ -24,10 +24,10 @@ RSpec.describe UsersController, type: :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    {login: 'allex', email: 'example@mail.ru', password: '123123', confirmed_at: DateTime.current}
+    {login: 'allex', email: 'example@mail.ru', password: '123123'}
   end
   let(:invalid_attributes) do
-    {login: 'allex', email: 'example', password: '1!@#$', confirmed_at: DateTime.current}
+    {login: 'allex', email: 'example', password: '1!@#$'}
   end
 
   # This should return the minimal set of values that should be in the session
@@ -72,7 +72,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with valid params' do
       it 'updates the requested user' do
         subject && user.reload
-        expect(user).to have_attributes(:login => 'allex')
+        expect(user).to have_attributes(login: 'allex')
       end
       it 'assigns the requested user as @user' do
         subject
@@ -83,8 +83,8 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(user)
       end
     end
-  subject{ put :update, params: {id: user.to_param, user: invalid_attributes}, session: valid_session }
-  let!(:user) { create(:user) }
+    subject { put :update, params: {id: user.to_param, user: invalid_attributes}, session: valid_session }
+    let!(:user) { create(:user) }
     context 'with invalid params' do
       it 'assigns the user as @user' do
         subject
