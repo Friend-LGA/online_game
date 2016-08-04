@@ -15,8 +15,12 @@ RSpec.describe Devise::PasswordsController, type: :routing do
       expect(get: '/users/password/edit').to route_to('devise/passwords#edit')
     end
 
-    it 'routes to #update PATCH password' do
+    it 'routes to #update via PATCH' do
       expect(patch: '/users/password').to route_to('devise/passwords#update')
+    end
+
+    it 'routes to #update via PUT' do
+      expect(put: '/users/password').to route_to('devise/passwords#update')
     end
   end
 end
