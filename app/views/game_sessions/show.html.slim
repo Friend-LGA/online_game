@@ -1,0 +1,17 @@
+﻿div.black_background_opacity
+div.modal_window.wait_enemy
+  |Ожидание противника...
+p
+  div.player_name.black
+    = "Черный человек: #{@game_session.black_user.login}"
+  div.player_name.white
+    = "Белый человек:  #{@game_session.white_user.login}"
+div#gameDiv
+  div#canvases
+    canvas#canvasGameBoard.canvas
+    canvas#canvasSelectedArea.canvas
+    canvas#canvasSelectedArea2.canvas
+    canvas#canvasCheckers.canvas
+    canvas#canvasCheckers2.canvas
+=form_for :game_session, remote: true, url: '/move' do |f|
+  =f.submit :button

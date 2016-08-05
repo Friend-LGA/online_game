@@ -28,7 +28,7 @@ App.invite_user = App.cable.subscriptions.create("InviteUserChannel", {
       +'data-disable-with="Отклонить" type="submit"></form>'
     }
     if (data.type == 'decline'){
-      alert('123')
+        $('.modal_window').html('Противник отклонил приглашение');
     }
   }
 });

@@ -30,6 +30,16 @@ function drawSelectedActionAtPos(posX, posY)
             isInteractionEnabled = false;
 
             moveAction();
+
+            $data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare};
+            $.ajax({
+                url: '/move',
+                method: 'POST',
+                data: $data,
+                success: function(data){
+                    conole.log('ДВИЖЕНИЕ!!');
+                }
+            })
         }
         else if (!selectedMoveSquare)
         {

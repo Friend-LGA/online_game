@@ -15,6 +15,22 @@ class GameSessionsController < ApplicationController
     end
   end
 
+  def move
+    data1 = params[:selectedChecker]
+    data2 = params[:selectedMoveSquare]
+    its_for = if current_user.id == 10
+                7
+              else
+                10
+              end
+    ActionCable.server.broadcast its_for.to_s + '_game',
+                                 selectedChecker: data1,
+                                 selectedMoveSquare: data2
+  end
+
+  def attack
+  end
+
   private
 
   def set_game_session

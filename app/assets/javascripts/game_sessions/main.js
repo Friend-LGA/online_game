@@ -25,7 +25,6 @@ window.onload = function()
 
                 var x = (isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left;
                 var y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
-
                 if (x > 0 && x < canvasSA.width &&
                     y > 0 && y < canvasSA.height)
                     drawSelectedActionAtPos(x, y);

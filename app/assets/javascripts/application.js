@@ -16,3 +16,9 @@
 //= require cable
 //= require ./game_sessions/vendors/animation_frame.min
 //= require_tree ./game_sessions
+$(document).ready(function(){
+    $('.black_background_opacity').click(function(){
+        $(this).css({'display' : 'none'});
+        $('.modal_window').css({'display' : 'none'});
+    });
+});
