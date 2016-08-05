@@ -104,7 +104,7 @@ ru:
       show: 'Вернуться к профилю'
       back: 'На главную'
     index:
-      invite_player: 'Пригласить в игру'
+      invite_player: 'Пригласить'
       you_must_auth: 'Вы должны авторизоваться'
       offline:  'Оффлайн'
       online: 'Онлайн'

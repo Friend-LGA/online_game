@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.page(params[:page])
+    @users = User.order(:id).page(params[:page])
   end
 
   def show
@@ -35,12 +35,21 @@ class UsersController < ApplicationController
 
   def decline_invite
     game_session_id = params[:game_session_id]
-
     game_session = GameSession.find(game_session_id)
     user_id = game_session.white_user_id.to_s
     ActionCable.server.broadcast user_id + '_invite',
                                  type: 'decline'
     redirect_to users_path, notice: 'Вы отклонили приглашение'
+  end
+
+  def accept_invite
+    game_session_id = params[:game_session_id]
+    game_session = GameSession.find(game_session_id)
+    user_id = game_session.white_user_id.to_s
+    ActionCable.server.broadcast user_id + '_invite',
+                                 type: 'accept'
+
+    redirect_to game_session_path(game_session.id)
   end
 
   def update

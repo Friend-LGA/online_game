@@ -44,9 +44,25 @@ window.onload = function()
             var y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
 
             if (x > 0 && x < canvasSA.width &&
-                y > 0 && y < canvasSA.height)
+                y > 0 && y < canvasSA.height) {
+                // $data = {
+                //     'selectedChecker': selectedChecker,
+                //     'selectedMoveSquare': selectedMoveSquare,
+                //     'x': x,
+                //     'y': y,
+                //     'map': getEmptyMapOfNumbers()
+                // };
+                // $.ajax({
+                //     url: '/move',
+                //     method: 'POST',
+                //     data: $data,
+                //     success: function (data) {
+                //         conole.log('ДВИЖЕНИЕ!!');
+                //     }
+                // });
                 drawHighlightedActionAtPos(x, y);
-            else
+
+            }else
                 clearHighlightedAction();
         }
     };

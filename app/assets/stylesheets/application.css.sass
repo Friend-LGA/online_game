@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
-@import "game_sessions.css.sass"
+@import "flash"
+@import "game_sessions"
+@import "users"
 
 body
   background: #ededed
@@ -43,13 +45,7 @@ body
   text-align: center
 .delete_margin
   margin: 0 0 0 25px
-.player_name
-  width: 50%
-  float: left
-  position: relative
-  padding: 10px 0px
-  font-size: 17px
-  text-align: center
+
 .black
   background: black
   color: white
@@ -57,22 +53,22 @@ body
 .white
   border: 1px solid black
   background: white
-.modal_window
-  width: 60%
-  min-height: 300px
-  position: fixed
-  background: #ecece3
-  z-index: 999
-  margin: 0 auto
-  font-size: 40px
-  text-align: center
-  line-height: 300px
+
 .black_background_opacity
   position: fixed
   left: 0
   top: 0
-  opacity: 0.5
-  background: black
+  background: rgba(0, 0, 0, 0.5)
   z-index: 998
   width: 100%
   height: 100%
+
+.modal_window
+  width: 60%
+  position: relative
+  background: #ecece3
+  z-index: 999
+  margin: 0 auto
+  font-size: 24px
+  text-align: center
+  padding: 25px

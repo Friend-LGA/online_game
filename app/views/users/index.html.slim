@@ -1,6 +1,6 @@
 h3 =t('.online_users')
 div id="invitions"
-table class="table"
+table.table.users_table
   tr class="info"
     td
       = t('.id')
@@ -11,20 +11,21 @@ table class="table"
     td
     td
   -@users.each do |user|
-      tr
-        td style="width: 1px"
-         = user.id
-        td
-          = user.login
-        -if current_user == user || user.online?
-          td class="success"
-            = t('.online')
-        -else
-          td class="danger"
-            = t('.offline')
-        td style="width: 1px"
-            = link_to t('.profile'), user_path(user.id)
-        td style="width:1px;"
+    tr
+      td.compact.center
+        = user.id
+      td
+        = user.login
+      -if current_user == user || user.online?
+        td.success.compact.center
+          = t('.online')
+      -else
+        td.danger.compact.center
+          = t('.offline')
+      td.compact.center
+          = link_to t('.profile'), user_path(user.id), class: 'btn btn-default'
+      td.compact.center
+        -if current_user != user && user.online?
           =form_for :user, url: notification_path do |f|
             =f.hidden_field :id, value: user.id
             =f.hidden_field :send_invite, value: user.id

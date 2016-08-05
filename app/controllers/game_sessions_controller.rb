@@ -18,17 +18,32 @@ class GameSessionsController < ApplicationController
   def move
     data1 = params[:selectedChecker]
     data2 = params[:selectedMoveSquare]
-    its_for = if current_user.id == 10
-                7
+    data3 = params[:x]
+    data4 = params[:y]
+    data5 = params[:map]
+    data6 = params[:type]
+    its_for = if current_user.id == 117
+                116
               else
-                10
+                117
               end
     ActionCable.server.broadcast its_for.to_s + '_game',
                                  selectedChecker: data1,
-                                 selectedMoveSquare: data2
+                                 selectedMoveSquare: data2,
+                                 x: data3,
+                                 y: data4,
+                                 map: data5,
+                                 type: data6
   end
 
   def attack
+    its_for = if current_user.id == 117
+                116
+              else
+                117
+              end
+    ActionCable.server.broadcast its_for.to_s + '_game',
+                                 type: 'attack'
   end
 
   private

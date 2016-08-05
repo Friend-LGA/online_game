@@ -13,6 +13,11 @@ App.game_session = App.cable.subscriptions.create("GameSessionChannel", {
       console.log('-------------------selectedMoveSquare-----------------------------');
       selectedChecker = data.selectedChecker;
       selectedMoveSquare = data.selectedMoveSquare;
-      moveAction();
+      if (data.type == 'attack'){
+          attackAction(0);
+      }
+      if (data.type == 'move') {
+          moveAction();
+      }
   }
 });

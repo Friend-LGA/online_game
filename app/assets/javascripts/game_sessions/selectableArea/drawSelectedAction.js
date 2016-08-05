@@ -28,18 +28,16 @@ function drawSelectedActionAtPos(posX, posY)
         if (selectedMoveSquare && selectedMoveSquare.numX == numX && selectedMoveSquare.numY == numY)
         {
             isInteractionEnabled = false;
-
-            moveAction();
-
-            $data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare};
+            $data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare, 'type' : 'move'};
             $.ajax({
                 url: '/move',
                 method: 'POST',
                 data: $data,
                 success: function(data){
-                    conole.log('ДВИЖЕНИЕ!!');
+                    console.log('ДВИЖЕНИЕ!!');
                 }
-            })
+            });
+            moveAction();
         }
         else if (!selectedMoveSquare)
         {
@@ -72,7 +70,15 @@ function drawSelectedActionAtPos(posX, posY)
         if (selectedAttackSquares.length && selectedAttackSquares[selectedAttackSquares.length-1].numX == numX && selectedAttackSquares[selectedAttackSquares.length-1].numY == numY)
         {
             isInteractionEnabled = false;
-
+            $data = {'selectedAttackChecker': selectedChecker, 'selectedAttackSquares': selectedMoveSquare, 'type': 'attack'};
+            $.ajax({
+                url: '/move',
+                method: 'POST',
+                data: $data,
+                success: function(data){
+                    console.log('ATTACK ALARM!!');
+                }
+            })
             attackAction(0);
         }
         // нажали на новую возможную атаку

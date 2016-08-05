@@ -1,11 +1,13 @@
-﻿div.black_background_opacity
-div.modal_window.wait_enemy
-  |Ожидание противника...
+﻿- if current_user.id == @game_session.white_user.id
+  div.black_background_opacity
+    div.modal_window.wait_enemy
+      | Ожидание противника...
 p
-  div.player_name.black
-    = "Черный человек: #{@game_session.black_user.login}"
-  div.player_name.white
-    = "Белый человек:  #{@game_session.white_user.login}"
+  div.players
+    div.player_name.white
+      = @game_session.white_user.login.to_s
+    div.player_name.black
+      = @game_session.black_user.login.to_s
 div#gameDiv
   div#canvases
     canvas#canvasGameBoard.canvas
@@ -13,5 +15,3 @@ div#gameDiv
     canvas#canvasSelectedArea2.canvas
     canvas#canvasCheckers.canvas
     canvas#canvasCheckers2.canvas
-=form_for :game_session, remote: true, url: '/move' do |f|
-  =f.submit :button

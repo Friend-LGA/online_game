@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post '/notification/accept', to: 'users#accept_invite'
   post '/notification/decline', to: 'users#decline_invite'
   post '/move', to: 'game_sessions#move'
+  post '/attack', to: 'game_sessions#attack'
 end
