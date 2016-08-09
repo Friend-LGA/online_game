@@ -85,8 +85,13 @@ function checkMovableSquare(numX1, numY1, direction)
         else if (direction == 2) { numY2 = numY1 + i; numX2 = numX1 - i; }
         else if (direction == 3) { numY2 = numY1 - i; numX2 = numX1 + i; }
         else if (direction == 4) { numY2 = numY1 - i; numX2 = numX1 - i; }
-
-        if (numY2 < map.length && numY2 >= 0 && numX2 < map.length && numX2 >= 0 && map[numY2][numX2] == checkerType.empty) mapMoveable[numY2][numX2] = 1;
+        console.log(numY2 < map.length);
+        console.log(numY2 >= 0);
+        console.log(numY2 < map.length);
+        console.log('dasdasdasdsadasdasdasdasdasdsad'+map.length)
+        console.log(numX2 < map.length);
+        console.log(map[numY2][numX2] == checkerType.empty);
+        if (numY2 < map.length && numY2 >= 0 && numY2 < map.length && numX2 < map.length && numX2 >= 0 && map[numY2][numX2] == checkerType.empty) mapMoveable[numY2][numX2] = 1;
         else break;
     }
 }

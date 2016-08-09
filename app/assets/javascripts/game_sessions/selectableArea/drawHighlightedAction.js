@@ -18,7 +18,7 @@ function drawHighlightedActionAtPos(posX, posY)
     }
     // если навели на не интерактивную клетку снимаем подсвеченные выделения, если они есть
     else if ((!map || !map[numY][numX] || isEnemyChecker(map[numY][numX])) &&
-        (!mapMoveable || !mapMoveable[numY][numX]) &&
+            (!mapMoveable || !mapMoveable[numY][numX]) &&
         (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
     {
         clearHighlightedAction();

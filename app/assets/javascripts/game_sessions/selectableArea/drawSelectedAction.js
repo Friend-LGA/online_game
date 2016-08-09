@@ -70,15 +70,16 @@ function drawSelectedActionAtPos(posX, posY)
         if (selectedAttackSquares.length && selectedAttackSquares[selectedAttackSquares.length-1].numX == numX && selectedAttackSquares[selectedAttackSquares.length-1].numY == numY)
         {
             isInteractionEnabled = false;
-            $data = {'selectedAttackChecker': selectedChecker, 'selectedAttackSquares': selectedMoveSquare, 'type': 'attack'};
+            data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare, 'posX': numX, 'posY': numY , 'selectedAttackCheckers': selectedAttackCheckers, 'selectedAttackSquares': selectedAttackSquares, 'mapMoveable':getEmptyMapOfNumbers(),  'mapCrossing':getEmptyMapOfNumbers()  , 'map':map,'type': 'attack'};
+            console.log(data);
             $.ajax({
                 url: '/move',
                 method: 'POST',
-                data: $data,
+                data: data,
                 success: function(data){
                     console.log('ATTACK ALARM!!');
                 }
-            })
+            });
             attackAction(0);
         }
         // нажали на новую возможную атаку

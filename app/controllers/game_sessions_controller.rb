@@ -22,6 +22,12 @@ class GameSessionsController < ApplicationController
     data4 = params[:y]
     data5 = params[:map]
     data6 = params[:type]
+    data7 = params[:selectedAttackCheckers]
+    data8 = params[:selectedAttackSquares]
+    data9 = params[:posX]
+    data10 = params[:posY]
+    data11 = params[:mapMoveable]
+    data12 = params[:mapCrossing]
     its_for = if current_user.id == 117
                 116
               else
@@ -33,17 +39,13 @@ class GameSessionsController < ApplicationController
                                  x: data3,
                                  y: data4,
                                  map: data5,
-                                 type: data6
-  end
-
-  def attack
-    its_for = if current_user.id == 117
-                116
-              else
-                117
-              end
-    ActionCable.server.broadcast its_for.to_s + '_game',
-                                 type: 'attack'
+                                 type: data6,
+                                 selectedAttackCheckers: data7.to_a.map { |i| i[1] },
+                                 selectedAttackSquares: data8.to_a.map { |i| i[1] },
+                                 posX: data9,
+                                 posY: data10,
+                                 mapMoveable: data11.to_a.map { |i| i[1] },
+                                 mapCrossing: data12.to_a.map { |i| i[1] }
   end
 
   private

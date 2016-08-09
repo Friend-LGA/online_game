@@ -8,15 +8,20 @@ App.game_session = App.cable.subscriptions.create("GameSessionChannel", {
   },
 
   received: function(data) {
-      console.log(data.selectedChecker);
-      console.log(data.selectedMoveSquare);
-      console.log('-------------------selectedMoveSquare-----------------------------');
       selectedChecker = data.selectedChecker;
-      selectedMoveSquare = data.selectedMoveSquare;
       if (data.type == 'attack'){
+          selectedAttackCheckers = data.selectedAttackCheckers;
+          selectedAttackSquares = data.selectedAttackSquares;
+          console.log(selectedAttackSquares);
+          numX = data.posX;
+          numY = data.posY;
+          //mapMoveable = data.mapMoveable;
+          //map = data.map;
+          mapCrossing = data.mapCrossing;
           attackAction(0);
       }
-      if (data.type == 'move') {
+      else if (data.type == 'move') {
+          selectedMoveSquare = data.selectedMoveSquare;
           moveAction();
       }
   }
