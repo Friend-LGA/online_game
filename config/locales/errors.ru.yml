@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        game_session:
+          attributes:
+            base:
+              blank: "пользователи не могут совпадать"
+            white_user:
+              required: "не может быть пустым"
+            black_user:
+              required: "не может быть пустым"
