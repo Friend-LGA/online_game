@@ -1,5 +1,12 @@
 function drawSelectedActionAtPos(posX, posY)
 {
+    function who_is_checker(data){
+        if (current_player == 1){
+           $('.who_is_checker').html('Сейчас ход черных')
+        }else{
+           $('.who_is_checker').html('Сейчас ход белых')
+        }
+    };
     var numX = Math.floor(posX / squareSize);
     var numY = Math.floor(posY / squareSize);
 
@@ -33,10 +40,8 @@ function drawSelectedActionAtPos(posX, posY)
                 url: '/move',
                 method: 'POST',
                 data: $data,
-                success: function(data){
-                    console.log('ДВИЖЕНИЕ!!');
-                }
-            });
+                success: who_is_checker()
+                            });
             moveAction();
         }
         else if (!selectedMoveSquare)
@@ -76,9 +81,7 @@ function drawSelectedActionAtPos(posX, posY)
                 url: '/move',
                 method: 'POST',
                 data: data,
-                success: function(data){
-                    console.log('ATTACK ALARM!!');
-                }
+                success: who_is_checker()
             });
             attackAction(0);
         }

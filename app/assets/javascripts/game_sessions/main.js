@@ -8,11 +8,16 @@ window.
 window.onload = function()
 {
     // отрисовываем все
-
+    // current_player = 1;
     resize();
-
+    current_player = 1;
     // отслеживаем позицию нажатия на канвасе
-
+                if ( current_player == 2){
+                     $(".black_background_opacity").css({'display': 'none'});
+                     $("#canvases").css({'transform' : 'rotate(180deg)', 'transition':'1s'});
+                }else{
+                     $("#canvases").css({'transform' : 'rotate(0deg)'});
+                }
     var isActionNeed = false;
 
     var mouseDownActionAtPos = function(event)
@@ -23,8 +28,20 @@ window.onload = function()
             {
                 var rect = canvasSA.getBoundingClientRect();
 
-                var x = (isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left;
-                var y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
+            var x,y;
+                if ( current_player == 2){
+                     $(".black_background_opacity").css({'display': 'none'});
+                     $("#canvases").css({'transform' : 'rotate(180deg)', 'transition':'1s'});
+                     x = size.out  - ((isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left);
+                     y = size.out  - ((isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top);
+                     console.log('Нажатие 2'+ x +' '+ y)
+                }else{
+                     $("#canvases").css({'transform' : 'rotate(0deg)'});
+                     x = (isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left;
+                     y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
+                     console.log('Нажатие 1'+ x +' '+ y)
+                }
+
                 if (x > 0 && x < canvasSA.width &&
                     y > 0 && y < canvasSA.height)
                     drawSelectedActionAtPos(x, y);
@@ -39,10 +56,19 @@ window.onload = function()
             isActionNeed = true;
 
             var rect = canvasSA.getBoundingClientRect();
-
-            var x = (isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left;
-            var y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
-
+            var x,y;
+                if ( current_player == 2){
+                     $(".black_background_opacity").css({'display': 'none'});
+                     $("#canvases").css({'transform' : 'rotate(180deg)', 'transition':'1s'});
+                     x = size.out  - ((isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left);
+                     y = size.out  - ((isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top);
+                     console.log('Движение 2 '+x +' '+y)
+                }else{
+                     $("#canvases").css({'transform' : 'rotate(0deg)'})
+                     x = (isMobileDevice ? event.changedTouches[0].clientX : event.clientX) - rect.left;
+                     y = (isMobileDevice ? event.changedTouches[0].clientY : event.clientY) - rect.top;
+                    console.log('Движение 1 '+x +' '+ y)
+                }
             if (x > 0 && x < canvasSA.width &&
                 y > 0 && y < canvasSA.height) {
                 // $data = {
@@ -61,7 +87,6 @@ window.onload = function()
                 //     }
                 // });
                 drawHighlightedActionAtPos(x, y);
-
             }else
                 clearHighlightedAction();
         }

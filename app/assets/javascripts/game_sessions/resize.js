@@ -3,6 +3,8 @@ function resize()
     var gameDiv = $('#gameDiv');
     var canvases = $('#canvases');
 
+
+
     size.out = gameDiv.width();
 
     var borderMultiplier = (isBordered ? 0.05 : 0.003);

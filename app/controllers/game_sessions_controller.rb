@@ -28,6 +28,11 @@ class GameSessionsController < ApplicationController
     data10 = params[:posY]
     data11 = params[:mapMoveable]
     data12 = params[:mapCrossing]
+    data13 = if current_user.id == 117
+               2
+             else
+               1
+             end
     its_for = if current_user.id == 117
                 116
               else
@@ -45,8 +50,17 @@ class GameSessionsController < ApplicationController
                                  posX: data9,
                                  posY: data10,
                                  mapMoveable: data11.to_a.map { |i| i[1] },
-                                 mapCrossing: data12.to_a.map { |i| i[1] }
+                                 mapCrossing: data12.to_a.map { |i| i[1] },
+                                 current_player: data13
   end
+
+  # def roles
+  #   if current_user.id == @game_session.black_user_id
+  #     return 2
+  #   else
+  #     return 1
+  #   end
+  # end
 
   private
 
