@@ -14,7 +14,8 @@ function drawSelectedActionAtPos(posX, posY)
     posY = squareSize * numY;
 
     // если мы нажали на нашу выделенную шашку
-    if (selectedChecker && selectedChecker.numX == numX && selectedChecker.numY == numY && (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
+    if (
+        selectedChecker && selectedChecker.numX == numX && selectedChecker.numY == numY && (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
     {
         if (selectedMoveSquare) clearSelectedMove();
         if (selectedAttackSquares.length) clearSelectedAttackFromIndex(0);
@@ -319,6 +320,7 @@ function nextTurnAfterMove()
 
 function nextTurnDone()
 {
+    currentPlayerColor = (isBlackTurn() ? playerColors.white : playerColors.black);
     turn = (isBlackTurn() ? turnType.white : turnType.black);
     isInteractionEnabled = true;
 }

@@ -27,18 +27,9 @@ App.game_session = App.cable.subscriptions.create("GameSessionChannel", {
           attackAction(0);
       }
       else if (data.type == 'move') {
-        if (data.current_player == 2){
-     $(".black_background_opacity").css({'display': 'none'});
-     $("#canvases").css({'transform' : 'rotate(180deg)', 'transition':'1s'});
-        }else{
-     $("#canvases").css({'transform' : 'rotate(0deg)'});
-
-    }
           current_player = data.current_player;
           selectedMoveSquare = data.selectedMoveSquare;
           moveAction();
-      }else if(data.type == 'roles'){
-          current_player = data.current_player;
       }
 
   }

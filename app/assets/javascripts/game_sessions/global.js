@@ -50,10 +50,9 @@ var whiteColor  = 'rgba(255, 255, 255, 1)';
 var greenColor  = 'rgba(50, 240, 50, 1)';
 var redColor    = 'rgba(240, 50, 50, 1)';
 var yellowColor = 'rgba(255, 255, 0, 1)';
-
 // изменяемое
 // ---------------------------------------------------------------------------------------------------------------------
-
+var currentPlayerColor = playerColors.white;
 var turnType =
 {
     white: 1,   // ход белых

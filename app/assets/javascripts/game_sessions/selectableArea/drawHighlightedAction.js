@@ -9,7 +9,7 @@ function drawHighlightedActionAtPos(posX, posY)
     // если наводим курсор на нашу не выделенную шашку
     if ((!selectedChecker || selectedChecker.numX != numX || selectedChecker.numY != numY) &&
         (!highlightedChecker || highlightedChecker.numX != numX || highlightedChecker.numY != numY) &&
-        (map && (isBlackTurn() ? isBlackChecker(map[numY][numX]) : isWhiteChecker(map[numY][numX]))))
+        (map && (isBlackTurn()? isBlackChecker(map[numY][numX]): isWhiteChecker(map[numY][numX]))))
     {
         clearHighlightedAction();
 

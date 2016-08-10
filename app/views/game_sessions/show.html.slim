@@ -1,11 +1,14 @@
-﻿- if current_user.id == @game_session.white_user.id
+﻿javascript:
+  var playerColors = {
+      white: 0,
+      black: 1
+  }
+  var playerColor = #{current_user.id == @game_session.white_user.id} ? playerColors.white : playerColors.black
+
+- if current_user.id == @game_session.white_user.id
   div.black_background_opacity
     div.modal_window.wait_enemy
       | Ожидание противника...
-- if current_user.id == @game_session.black_user.id
-  div.black_background_opacity
-    div.modal_window.wait_enemy
-      | Вы ходите вторым...
 p
   div.players
     div.player_name.white

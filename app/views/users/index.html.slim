@@ -25,7 +25,7 @@ table.table.users_table
       td.compact.center
           = link_to t('.profile'), user_path(user.id), class: 'btn btn-default'
       td.compact.center
-        -if current_user != user && user.online?
+        -if current_user != user && user.online? && user_signed_in?
           =form_for :user, url: notification_path do |f|
             =f.hidden_field :id, value: user.id
             =f.hidden_field :send_invite, value: user.id
