@@ -46,107 +46,50 @@ RSpec.describe GameSessionsController, type: :controller do
     end
   end
 
-  describe 'GET #new' do
-    it 'assigns a new game_session as @game_session' do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:game_session)).to be_a_new(GameSession)
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'assigns the requested game_session as @game_session' do
-      game_session = GameSession.create! valid_attributes
-      get :edit, params: {id: game_session.to_param}, session: valid_session
-      expect(assigns(:game_session)).to eq(game_session)
-    end
-  end
-
   describe 'POST #create' do
+    subject { post :create, params: {game_session: valid_attributes}, session: valid_session }
+    let!(:game_session) { create(:game_session) }
+
     context 'with valid params' do
       it 'creates a new GameSession' do
         expect do
-          post :create, params: {game_session: valid_attributes}, session: valid_session
         end.to change(GameSession, :count).by(1)
-      end
-
-      it 'assigns a newly created game_session as @game_session' do
-        post :create, params: {game_session: valid_attributes}, session: valid_session
-        expect(assigns(:game_session)).to be_a(GameSession)
-        expect(assigns(:game_session)).to be_persisted
-      end
-
-      it 'redirects to the created game_session' do
-        post :create, params: {game_session: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(GameSession.last)
       end
     end
 
+    subject { post :create, params: {game_session: valid_attributes}, session: valid_session }
+    let!(:game_session) { create(:game_session) }
+
+    it 'assigns a newly created game_session as @game_session' do
+      subject
+      expect(assigns(:game_session)).to be_a(GameSession)
+      expect(assigns(:game_session)).to be_persisted
+    end
+
+    subject { post :create, params: {game_session: valid_attributes}, session: valid_session }
+    let!(:game_session) { create(:game_session) }
+
+    it 'redirects to the created game_session' do
+      subject
+      expect(response).to redirect_to(GameSession.last)
+    end
+
     context 'with invalid params' do
+      subject { post :create, params: {game_session: invalid_attributes}, session: valid_session }
+      let!(:game_session) { create(:game_session) }
+
       it 'assigns a newly created but unsaved game_session as @game_session' do
-        post :create, params: {game_session: invalid_attributes}, session: valid_session
+        subject
         expect(assigns(:game_session)).to be_a_new(GameSession)
       end
 
+      subject { post :create, params: {game_session: invalid_attributes}, session: valid_session }
+      let!(:game_session) { create(:game_session) }
+
       it "re-renders the 'new' template" do
-        post :create, params: {game_session: invalid_attributes}, session: valid_session
+        subject
         expect(response).to render_template('new')
       end
-    end
-  end
-
-  describe 'PUT #update' do
-    context 'with valid params' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested game_session' do
-        game_session = GameSession.create! valid_attributes
-        put :update, params: {id: game_session.to_param, game_session: new_attributes}, session: valid_session
-        game_session.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'assigns the requested game_session as @game_session' do
-        game_session = GameSession.create! valid_attributes
-        put :update, params: {id: game_session.to_param, game_session: valid_attributes}, session: valid_session
-        expect(assigns(:game_session)).to eq(game_session)
-      end
-
-      it 'redirects to the game_session' do
-        game_session = GameSession.create! valid_attributes
-        put :update, params: {id: game_session.to_param, game_session: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(game_session)
-      end
-    end
-
-    context 'with invalid params' do
-      it 'assigns the game_session as @game_session' do
-        game_session = GameSession.create! valid_attributes
-        put :update, params: {id: game_session.to_param, game_session: invalid_attributes}, session: valid_session
-        expect(assigns(:game_session)).to eq(game_session)
-      end
-
-      it "re-renders the 'edit' template" do
-        game_session = GameSession.create! valid_attributes
-        put :update, params: {id: game_session.to_param, game_session: invalid_attributes}, session: valid_session
-        expect(response).to render_template('edit')
-      end
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    it 'destroys the requested game_session' do
-      game_session = GameSession.create! valid_attributes
-      expect do
-        delete :destroy, params: {id: game_session.to_param}, session: valid_session
-      end.to change(GameSession, :count).by(-1)
-    end
-
-    it 'redirects to the game_sessions list' do
-      game_session = GameSession.create! valid_attributes
-      delete :destroy, params: {id: game_session.to_param}, session: valid_session
-      expect(response).to redirect_to(game_sessions_url)
     end
   end
 end
