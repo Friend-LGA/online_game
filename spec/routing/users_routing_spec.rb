@@ -22,5 +22,17 @@ RSpec.describe UsersController, type: :routing do
     it 'routes to #update via PUT' do
       expect(put: '/users/1').to route_to('users#update', id: '1')
     end
+
+    it 'routes to #send_not' do
+      expect(post: '/notification').to route_to('users#send_not')
+    end
+
+    it 'routes to #accept_invite' do
+      expect(post: '/notification_accept').to route_to('users#accept_invite')
+    end
+
+    it 'routes to #decline_invite' do
+      expect(post: '/notification_decline').to route_to('users#decline_invite')
+    end
   end
 end

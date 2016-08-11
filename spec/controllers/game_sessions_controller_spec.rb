@@ -24,11 +24,11 @@ RSpec.describe GameSessionsController, type: :controller do
   # GameSession. As you add validations to GameSession, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {whie_user_id: 1, black_user_id: 2, game_session: 1}
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {whie_user_id: 1, black_user_id: 2, game_session: 1}
   end
 
   # This should return the minimal set of values that should be in the session
@@ -36,18 +36,12 @@ RSpec.describe GameSessionsController, type: :controller do
   # GameSessionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe 'GET #index' do
-    it 'assigns all game_sessions as @game_sessions' do
-      game_session = GameSession.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(assigns(:game_sessions)).to eq([game_session])
-    end
-  end
-
   describe 'GET #show' do
+    subject { get :show, params: {id: game_session.to_param}, session: valid_session }
+    let!(:game_session) { create(:game_session) }
+
     it 'assigns the requested game_session as @game_session' do
-      game_session = GameSession.create! valid_attributes
-      get :show, params: {id: game_session.to_param}, session: valid_session
+      subject
       expect(assigns(:game_session)).to eq(game_session)
     end
   end
