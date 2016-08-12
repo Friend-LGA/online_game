@@ -13,12 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require cable
-//= require ./game_sessions/vendors/animation_frame.min
-//= require_tree ./game_sessions
-$(document).ready(function(){
-    $('.black_background_opacity').click(function(){
-        $(this).css({'display' : 'none'});
-        $('.modal_window').css({'display' : 'none'});
-    });
-});
+//= require_tree .
+
+

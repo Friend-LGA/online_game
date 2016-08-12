@@ -10,11 +10,12 @@ Rails/OutputSafety:
 CaseIndentation:
   IndentOneStep: true
 Metrics/AbcSize:
-  Enabled: false
+  Exclude:
+    - 'db/migrate/*'
 Metrics/LineLength:
   Max: 120
 Metrics/MethodLength:
-  Max: 50
+  Max: 20
   Exclude:
     - 'db/migrate/*'
 Style/ClassAndModuleChildren:
