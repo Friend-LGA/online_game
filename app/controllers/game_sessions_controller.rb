@@ -37,15 +37,7 @@ class GameSessionsController < ApplicationController
                                  mapMoveable: params[:mapMoveable].to_a.map { |i| i[1] },
                                  mapCrossing: params[:mapCrossing].to_a.map { |i| i[1] }
   end
-
-  # def roles
-  #   if current_user.id == @game_session.black_user_id
-  #     return 2
-  #   else
-  #     return 1
-  #   end
-  # end
-
+  
   private
 
   def set_game_session

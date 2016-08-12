@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     user_id = game_session.white_user_id.to_s
     ActionCable.server.broadcast user_id + '_invite',
                                  type: 'decline'
-    redirect_to users_path, notice: 'Вы отклонили приглашение'
+    redirect_to users_path, notice: t('.u_decline_invite')
   end
 
   def accept_invite

@@ -8,8 +8,7 @@
 - if current_user.id == @game_session.white_user.id
   div.black_background_opacity
     div.modal_window.wait_enemy
-      | Ожидание противника...
-p
+    = t('.wait')p
   div.players
     div.player_name.white
       = @game_session.white_user.login.to_s

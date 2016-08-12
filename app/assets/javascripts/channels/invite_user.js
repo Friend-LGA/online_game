@@ -1,12 +1,4 @@
 App.invite_user = App.cable.subscriptions.create("InviteUserChannel", {
-  connected: function() {
-
-  },
-
-  disconnected: function() {
-
-  },
-
   received: function(data) {
     $token = $("meta[name=csrf-token]").attr('content');
       if (data.type == 'invite') {

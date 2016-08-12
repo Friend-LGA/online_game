@@ -1,5 +1,4 @@
 App.game_session = App.cable.subscriptions.create("GameSessionChannel", {
-
   received: function(data) {
       selectedChecker = data.selectedChecker;
       if (data.current_player == 1){

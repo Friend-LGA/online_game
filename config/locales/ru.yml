@@ -12,6 +12,7 @@ ru:
   game_sessions:
       show:
         now_white_hod: 'Сейчас ход белых'
+        wait: 'Ожидание противника'
   devise:
     aliases:
       - &email
@@ -96,6 +97,7 @@ ru:
   users:
     update:
       user_was_update_successfull: 'Пользователь успешно обновлен'
+      u_decline_invite: 'Вы отклонили приглашение'
     show:
       on_index: 'На главную'
       edit: 'Редактировать'
