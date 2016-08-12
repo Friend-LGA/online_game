@@ -1,5 +1,12 @@
 function drawSelectedActionAtPos(posX, posY)
 {
+    function who_is_checker(data){
+        if (current_player == 1){
+           $('.who_is_checker').html('Сейчас ход черных')
+        }else {
+            $('.who_is_checker').html('Сейчас ход белых')
+        }
+    };
     var numX = Math.floor(posX / squareSize);
     var numY = Math.floor(posY / squareSize);
 
@@ -7,7 +14,8 @@ function drawSelectedActionAtPos(posX, posY)
     posY = squareSize * numY;
 
     // если мы нажали на нашу выделенную шашку
-    if (selectedChecker && selectedChecker.numX == numX && selectedChecker.numY == numY && (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
+    if (
+        selectedChecker && selectedChecker.numX == numX && selectedChecker.numY == numY && (!mapAttackableSquares || !mapAttackableSquares[numY][numX]))
     {
         if (selectedMoveSquare) clearSelectedMove();
         if (selectedAttackSquares.length) clearSelectedAttackFromIndex(0);
@@ -28,7 +36,13 @@ function drawSelectedActionAtPos(posX, posY)
         if (selectedMoveSquare && selectedMoveSquare.numX == numX && selectedMoveSquare.numY == numY)
         {
             isInteractionEnabled = false;
-
+            $data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare, 'type' : 'move', 'game_id': $('#game_session_id').html()};
+            $.ajax({
+                url: '/move',
+                method: 'POST',
+                data: $data,
+                success: who_is_checker()
+                            });
             moveAction();
         }
         else if (!selectedMoveSquare)
@@ -62,7 +76,13 @@ function drawSelectedActionAtPos(posX, posY)
         if (selectedAttackSquares.length && selectedAttackSquares[selectedAttackSquares.length-1].numX == numX && selectedAttackSquares[selectedAttackSquares.length-1].numY == numY)
         {
             isInteractionEnabled = false;
-
+            data = {'selectedChecker': selectedChecker, 'selectedMoveSquare': selectedMoveSquare, 'posX': numX, 'posY': numY , 'selectedAttackCheckers': selectedAttackCheckers, 'selectedAttackSquares': selectedAttackSquares, 'mapMoveable':getEmptyMapOfNumbers(), 'game_id': $('#game_session_id').html(),  'mapCrossing':getEmptyMapOfNumbers()  , 'map':map,'type': 'attack'};
+            $.ajax({
+                url: '/move',
+                method: 'POST',
+                data: data,
+                success: who_is_checker()
+            });
             attackAction(0);
         }
         // нажали на новую возможную атаку
@@ -299,8 +319,10 @@ function nextTurnAfterMove()
 
 function nextTurnDone()
 {
+    currentPlayerColor = (isBlackTurn() ? playerColors.white : playerColors.black);
     turn = (isBlackTurn() ? turnType.white : turnType.black);
     isInteractionEnabled = true;
+    isWinnerHOD()
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

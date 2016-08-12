@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   def online?
     $redis_users_statuses.get(id).present?
+  end
+
   def game_session
     GameSession.find_by("white_user_id = #{id} OR black_user_id = #{id}")
   end

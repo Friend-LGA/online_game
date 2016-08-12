@@ -2,9 +2,9 @@ doctype html
 html lang=I18n.locale.to_s
 head
   meta charset='utf-8'
-  =stylesheet_link_tag 'application', media: 'all'
-  =javascript_include_tag 'application'
+  = stylesheet_link_tag 'application', media: 'all'
   =csrf_meta_tags
+
 body
   nav.navbar.navbar-inverse.navbar role="navigation"
     .container
@@ -38,3 +38,4 @@ body
             h3 class="panel-title" = t('.adverticement')
           div class="panel-body no_link"
             = t('.adverticement')
+  = javascript_include_tag 'application'
